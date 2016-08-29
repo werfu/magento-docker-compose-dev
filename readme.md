@@ -36,7 +36,7 @@ Docker-compose use service name as hostname. You will need those while configuri
 The MySQL database configuration are passed to the MySQL instance as environment variables set inside the docker-compose.yml file. They are used to initialize the MySQL instance on the first run. Feel free to adjust them as you need. By default the root password, the regular user name, it's password AND the database are all set to "magento". AGAIN, THERE IS NO SECURITY EXPECTATIONS HERE, DO NOT USE IN PRODUCTION.
 
 ## Folder structure
-* www : Put your public Magento folder there.
+* www : Put your public Magento folder there. If you want your Magento site to be able to write to the folder, you'll have to ensure the group 33 is write-enabled (www-data on debian, http on arch) on the folder. New files will be created with the www-data user on the PHP-FPM machine.
 * db/init : Any scripts (SQL or sh) placed there will be ran on the first machine build. Usefull for importing a database
 * db/data : This is where the MySQL database are stored. You can copy your MySQL database straight there too (it might require some tweaks though, have a read at the MySQL docker image documentation).
 
