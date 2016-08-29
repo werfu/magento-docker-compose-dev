@@ -19,18 +19,18 @@ Most Magento Docker image are monolytic or at most using an external MySQL serve
 	* pdo_mysql
 	* simplexml
 	* soap
-* Redis
-* PHPMyAdmin (accessible on port 8080)
-* MailCatcher (accessible on port 1080)
+* Redis: A fast key-value store. Configured as a memory online store for now, but support for dump on shutdown could be added easily.
+* PHPMyAdmin: PHPMyAdmin is configured to allow remote connection. Use the database credentials in the following section to log onto the db server. 
+* MailCatcher: Mailcatcher is a fake SMTP service which catch all mail going through and allow you to read them in a web interface. Pretty usefull to debug mail template and suchs.
 
 ## Services structure
 Docker-compose use service name as hostname. You will need those while configuring
-* db: MySql server
-* fpm: PHP-FPM. If you need to execute PHP commands (like running n98-magerun), do it there.
-* redis: Redis cache
-* mailcatcher: Mailcatcher is a fake SMTP service which catch all mail going through and allow you to read them in a web interface. Pretty usefull to debug mail template and suchs.
-* phpmyadmin: PHPMyAdmin is configured to allow remote connection. Use the database credentials in the following section to log onto the db server.
-* nginx: A plain nginx server.
+* db: MySql server (listening on port 3306)
+* fpm: PHP-FPM listening on port 9000. If you need to execute PHP commands (like running n98-magerun), do it there.
+* redis: Redis cache (listening on port 6379)
+* mailcatcher: (accessible on port 1080 with your web brower) 
+* phpmyadmin: (accessible on port 8080 with your web brower)
+* nginx: listening on http (80) only (TODO: Add SSL support)
 
 ## Database configuration
 The MySQL database configuration are passed to the MySQL instance as environment variables set inside the docker-compose.yml file. They are used to initialize the MySQL instance on the first run. Feel free to adjust them as you need. By default the root password, the regular user name, it's password AND the database are all set to "magento". AGAIN, THERE IS NO SECURITY EXPECTATIONS HERE, DO NOT USE IN PRODUCTION.
@@ -43,9 +43,13 @@ The MySQL database configuration are passed to the MySQL instance as environment
 ## Configuration customization
 * Nginx default site configuration is exposed in conf/site.conf. The configuration is straightfowared, with basic rewrites and no security at all.
 * PHP configuration can be tailored by editing the fpm/custom.ini.
-* FPM pool configuration is not exposed.
+* FPM pool configuration is not exposed (no need for now).
 
 ## PHP Debugging
 Xdebug extension configuration is exposed in conf/xdebug.conf. By default the remote port is set to 9009 and the remote handler to dbgp. The connect_back option is enable, so ensure your IDE is allowing it.
 
+## Adding further features
+More PHP extensions can be added by customizing the dockerfile inside the FPM folder. Simply rebuild the FPM image after by running docker-compose up --build.
 
+## Thanks and credit
+This repo is an assembly of configurations snippets grabbed all around, but mostly from PHP and MySQL docker builds. The Wordpress docker build documentation has also been very usefull helping mastering docker.  
