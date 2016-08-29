@@ -8,17 +8,17 @@ Most Magento Docker image are monolytic or at most using an external MySQL serve
 * Latest Nginx
 * MySQL 5.5
 * PHP-FPM 5.6 with the following extensions:
-⋅⋅* XDebug
-⋅⋅* gd (with freetype and jpeg support)
-⋅⋅* iconv
-⋅⋅* mcrypt
-⋅⋅* curl
-⋅⋅* dom
-⋅⋅* hash
-⋅⋅* pdo
-⋅⋅* pdo_mysql
-⋅⋅* simplexml
-⋅⋅* soap
+	* XDebug
+	* gd (with freetype and jpeg support)
+	* iconv
+	* mcrypt
+	* curl
+	* dom
+	* hash
+	* pdo
+	* pdo_mysql
+	* simplexml
+	* soap
 * Redis
 * PHPMyAdmin (accessible on port 8080)
 * MailCatcher (accessible on port 1080)
